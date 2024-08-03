@@ -1,9 +1,9 @@
 {
     "BootstrapperVersion": "1.11",
-    "SupportedClient": "version-ddeff41b4db0441b",
-    "SoftwareVersion": "2.58",
+    "SupportedClient": "version-01a570a3cd0a46f2",
+    "SoftwareVersion": "2.59",
     "BootstrapperUrl": "https://github.com/cmd-softworks/solara/raw/main/Bootstrapper.exe",
     "SoftwareUrl":"https://github.com/cmd-softworks/solara/raw/main/Solara.Dir.zip",
     "VersionUrl":"https://clientsettings.roblox.com/v2/client-version/WindowsPlayer/channel/live",
-    "ClientHash":"c7cc1a0be955cea8116144ae2eada01ba583b3e6e4731aacc7b6bb6ff4e53ea7"
+    "ClientHash":"b11ab7de7ed724cd660a68b040cf8b7bfb8da93a3cd4f6e7935b2ce3174730c8"
 }
