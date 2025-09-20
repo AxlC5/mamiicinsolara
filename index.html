@@ -1,87 +1,665 @@
 <!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Offset Values</title>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Axl Offsets</title>
+    <link rel="icon" href="axl_favicon.png" type="image/x-icon" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <meta property="og:title" content="Axl Offsets">
+    <meta property="og:description" content="Premium Game Offsets">
+    <meta property="og:type" content="website">
+    
     <style>
-        body {
-            background-color: #1e1e1e;
-            color: #d4d4d4;
-            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-            margin: 0;
-            padding: 20px;
-            line-height: 1.6;
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+      * {
+        font-family: 'Poppins', sans-serif;
+        border: 1px solid transparent;
+      }
+
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(45deg, #6366f1, #a855f7);
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::selection {
+        background: rgba(168, 85, 247, 0.4);
+        color: #fff;
+      }
+
+      .version-text::selection {
+        -webkit-text-fill-color: white;
+        color: white;
+        background: rgba(168, 85, 247, 0.6);
+      }
+
+      .card {
+        background: rgba(30, 20, 50, 0.7);
+        backdrop-filter: blur(25px);
+        border: 1px solid rgba(139, 92, 246, 0.3);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 6px 40px rgba(30, 20, 50, 0.3);
+      }
+
+      .card::before {
+        content: '';
+        position: absolute;
+        bottom: -60%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 220px;
+        height: 160px;
+        background: radial-gradient(
+          ellipse,
+          rgba(168, 85, 247, 0.25) 0%,
+          rgba(139, 92, 246, 0.18) 30%,
+          rgba(124, 58, 237, 0.12) 60%,
+          transparent 100%
+        );
+        filter: blur(25px);
+        border-radius: 50%;
+        z-index: -1;
+        opacity: 0;
+        transition: all 0.4s ease;
+      }
+
+      .card::after {
+        content: '';
+        position: absolute;
+        bottom: -100%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 140px;
+        height: 120px;
+        background: radial-gradient(
+          ellipse,
+          rgba(196, 181, 253, 0.5) 0%,
+          rgba(168, 85, 247, 0.3) 40%,
+          transparent 100%
+        );
+        filter: blur(18px);
+        border-radius: 50%;
+        z-index: -1;
+        opacity: 0;
+        transition: all 0.4s ease;
+      }
+
+      .card:hover {
+        border-color: rgba(168, 85, 247, 0.6);
+        background: rgba(40, 25, 65, 0.9);
+        color: #fff;
+        transform: translateY(-6px) scale(1.03);
+        box-shadow: 0 16px 60px rgba(30, 20, 50, 0.5), 0 0 50px rgba(168, 85, 247, 0.15);
+      }
+
+      .card:hover::before {
+        opacity: 1;
+        width: 260px;
+        height: 180px;
+        background: radial-gradient(
+          ellipse,
+          rgba(168, 85, 247, 0.3) 0%,
+          rgba(139, 92, 246, 0.22) 30%,
+          rgba(124, 58, 237, 0.15) 60%,
+          transparent 100%
+        );
+      }
+
+      .card:hover::after {
+        opacity: 1;
+        width: 170px;
+        height: 140px;
+        background: radial-gradient(
+          ellipse,
+          rgba(196, 181, 253, 0.6) 0%,
+          rgba(168, 85, 247, 0.4) 40%,
+          transparent 100%
+        );
+      }
+
+      .card button {
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .card button:hover {
+        border-color: rgba(168, 85, 247, 0.6);
+        transform: scale(1.08);
+      }
+
+      .bg-gradient {
+        background: radial-gradient(ellipse at top, #1a0b2e 0%, #16213e 30%, #0f0c29 70%, #000000 100%);
+        min-height: 100vh;
+      }
+
+      .bg-gradient::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+          radial-gradient(circle at 25% 60%, rgba(168, 85, 247, 0.08) 0%, transparent 50%),
+          radial-gradient(circle at 75% 25%, rgba(139, 92, 246, 0.06) 0%, transparent 50%),
+          radial-gradient(circle at 50% 90%, rgba(124, 58, 237, 0.07) 0%, transparent 50%);
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(40px);
         }
-        
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: #252526;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        to {
+          opacity: 1;
+          transform: translateY(0);
         }
-        
-        h1 {
-            color: #569cd6;
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 28px;
+      }
+
+      @keyframes float {
+        0%, 100% {
+          transform: translateY(0px) rotate(0deg);
         }
-        
-        .code-block {
-            background-color: #1e1e1e;
-            border: 1px solid #3c3c3c;
-            border-radius: 4px;
-            padding: 20px;
-            overflow-x: auto;
-            font-size: 14px;
+        33% {
+          transform: translateY(-12px) rotate(1deg);
         }
-        
-        .keyword {
-            color: #569cd6;
+        66% {
+          transform: translateY(-6px) rotate(-1deg);
         }
-        
-        .type {
-            color: #4ec9b0;
+      }
+
+      .animate-fade-in-up {
+        animation: fadeInUp 1s ease forwards;
+      }
+
+      .animate-float {
+        animation: float 8s ease-in-out infinite;
+      }
+
+      .delay-100 { animation-delay: 0.1s; }
+      .delay-200 { animation-delay: 0.2s; }
+      .delay-300 { animation-delay: 0.3s; }
+      .delay-500 { animation-delay: 0.5s; }
+
+      .toastify {
+        background: rgba(30, 20, 50, 0.95) !important;
+        backdrop-filter: blur(25px);
+        border: 1px solid rgba(139, 92, 246, 0.5);
+        box-shadow: 0 10px 40px rgba(30, 20, 50, 0.4);
+        border-radius: 16px !important;
+        font-family: 'Poppins', sans-serif;
+        padding: 18px 26px !important;
+        display: flex !important;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .toastify i {
+        font-size: 1.4em;
+        color: #a855f7;
+      }
+
+      .card-icon {
+        font-size: 2.2em;
+        margin-bottom: 1rem;
+        color: #c4b5fd;
+        filter: drop-shadow(0 0 12px rgba(196, 181, 253, 0.4));
+        transition: all 0.4s ease;
+      }
+
+      .card:hover .card-icon {
+        color: #e9d5ff;
+        filter: drop-shadow(0 0 18px rgba(233, 213, 255, 0.6));
+        transform: scale(1.15) rotate(5deg);
+      }
+
+      .title-glow {
+        text-shadow: 0 0 40px rgba(168, 85, 247, 0.4);
+      }
+
+      .support-content {
+        position: absolute;
+        left: 0;
+        right: 0;
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        transform: translateY(20px);
+        z-index: 10;
+      }
+
+      details[open] .support-content {
+        opacity: 1;
+        pointer-events: all;
+        transform: translateY(0);
+        margin-top: 2rem;
+      }
+
+      .support-wrapper {
+        position: relative;
+        min-height: 60px;
+        margin-top: 2rem;
+      }
+
+      .support-button {
+        background: rgba(30, 20, 50, 0.8);
+        backdrop-filter: blur(25px);
+        border: 1px solid rgba(139, 92, 246, 0.5);
+        padding: 1rem 2.5rem;
+        border-radius: 16px;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
+        color: #c4b5fd;
+        position: relative;
+        z-index: 2;
+        overflow: hidden;
+        box-shadow: 0 6px 20px rgba(30, 20, 50, 0.3);
+      }
+
+      .support-button::before {
+        content: '';
+        position: absolute;
+        bottom: -100%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 220px;
+        height: 160px;
+        background: radial-gradient(
+          ellipse,
+          rgba(168, 85, 247, 0.25) 0%,
+          rgba(139, 92, 246, 0.18) 30%,
+          rgba(124, 58, 237, 0.12) 60%,
+          transparent 100%
+        );
+        filter: blur(25px);
+        border-radius: 50%;
+        z-index: -1;
+        opacity: 0;
+        transition: all 0.4s ease;
+      }
+
+      .support-button::after {
+        content: '';
+        position: absolute;
+        bottom: -95%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 140px;
+        height: 120px;
+        background: radial-gradient(
+          ellipse,
+          rgba(196, 181, 253, 0.5) 0%,
+          rgba(168, 85, 247, 0.3) 40%,
+          transparent 100%
+        );
+        filter: blur(18px);
+        border-radius: 50%;
+        z-index: -1;
+        opacity: 0;
+        transition: all 0.4s ease;
+      }
+
+      .support-button:hover {
+        border-color: rgba(168, 85, 247, 0.7);
+        background: rgba(40, 25, 65, 0.9);
+        color: #fff;
+        transform: translateY(-3px);
+        box-shadow: 0 12px 40px rgba(30, 20, 50, 0.5);
+      }
+
+      .support-button:hover::before {
+        opacity: 1;
+        width: 260px;
+        height: 180px;
+      }
+
+      .support-button:hover::after {
+        opacity: 1;
+        width: 170px;
+        height: 140px;
+      }
+
+      .support-button:active {
+        transform: translateY(-2px) scale(0.98);
+      }
+
+      .support-text-container {
+        position: relative;
+        display: inline-block;
+      }
+
+      .support-text {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.8rem;
+        position: relative;
+        font-weight: 600;
+      }
+
+      @keyframes blink {
+        50% { opacity: 0; }
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(25px);
         }
-        
-        .variable {
-            color: #9cdcfe;
+        to {
+          opacity: 1;
+          transform: translateY(0);
         }
-        
-        .value {
-            color: #b5cea8;
+      }
+
+      @keyframes slideOut {
+        from {
+          opacity: 1;
+          transform: translateY(0);
         }
-        
-        .comment {
-            color: #6a9955;
+        to {
+          opacity: 0;
+          transform: translateY(-25px);
         }
+      }
+
+      .support-cards {
+        animation: slideIn 0.5s ease-out forwards;
+      }
+
+      .support-cards.hiding {
+        animation: slideOut 0.5s ease-out forwards;
+      }
+
+      details:not([open]) .support-cards {
+        display: none;
+      }
+
+      summary {
+        list-style: none;
+      }
+      summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .main-content {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+      }
+
+      .content-wrapper {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-bottom: 140px;
+      }
+
+      footer {
+        position: static; 
+        bottom: 0;
+        left: 0;
+        right: 0;
+        backdrop-filter: blur(15px);
+        background: rgba(30, 20, 50, 0.4);
+        border-top: 1px solid rgba(139, 92, 246, 0.3);
+      }
+
+      .footer-link {
+        transition: all 0.4s ease;
+        position: relative;
+      }
+
+      .footer-link:hover {
+        transform: translateY(-2px);
+      }
+
+      .crypto-card {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .crypto-card::before {
+        content: '';
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: linear-gradient(45deg, 
+          rgba(168, 85, 247, 0.15) 0%, 
+          rgba(139, 92, 246, 0.25) 50%, 
+          rgba(168, 85, 247, 0.15) 100%);
+        border-radius: inherit;
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
+
+      .crypto-card:hover::before {
+        opacity: 1;
+      }
+
+      .version-text {
+        background: linear-gradient(135deg, #c4b5fd, #e9d5ff, #a855f7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 600;
+      }
+
+      .brand-gradient {
+        background: linear-gradient(135deg, #a855f7, #e9d5ff, #c4b5fd);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
     </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Memory Offset Values</h1>
-        
-        <div class="code-block">
-<span class="keyword">inline constexpr</span> <span class="type">uintptr_t</span> <span class="variable">Anchored</span> = <span class="value">0x2E5</span>;<br>
-<span class="keyword">inline constexpr</span> <span class="type">uintptr_t</span> <span class="variable">AnchoredMask</span> = <span class="value">0x2</span>;<br>
-<span class="keyword">inline constexpr</span> <span class="type">uintptr_t</span> <span class="variable">AnimationId</span> = <span class="value">0xD8</span>;<br>
-<span class="keyword">inline constexpr</span> <span class="type">uintptr_t</span> <span class="variable">AttributeList</span> = <span class="value">0x38</span>;<br>
-<span class="keyword">inline constexpr</span> <span class="type">uintptr_t</span> <span class="variable">AttributeList2</span> = <span class="value">0x18</span>;<br>
-<span class="keyword">inline constexpr</span> <span class="type">uintptr_t</span> <span class="variable">AttributeToNext</span> = <span class="value">0x58</span>;<br>
-<span class="keyword">inline constexpr</span> <span class="type">uintptr_t</span> <span class="variable">AutoJumpEnabled</span> = <span class="value">0x1E3</span>;<br>
-<span class="keyword">inline constexpr</span> <span class="type">uintptr_t</span> <span class="variable">BeamBrightness</span> = <span class="value">0x198</span>;<br>
-<span class="keyword">inline constexpr</span> <span class="type">uintptr_t</span> <span class="variable">BeamColor</span> = <span class="value">0x128</span>;<br>
-<span class="keyword">inline constexpr</span> <span class="type">uintptr_t</span> <span class="variable">BeamLightEmission</span> = <span class="value">0x1A4</span>;<br>
-<span class="keyword">inline constexpr</span> <span class="type">uintptr_t</span> <span class="variable">BeamLightInfuence</span> = <span class="value">0x1A8</span>;<br>
-<span class="keyword">inline constexpr</span> <span class="type">uintptr_t</span> <span class="variable">CFrame</span> = <span class="value">0x130</span>;<br>
-<span class="keyword">inline constexpr</span> <span class="type">uintptr_t</span> <span class="variable">Camera</span> = <span class="value">0x450</span>;<br>
-<span class="keyword">inline constexpr</span> <span class="type">uintptr_t</span> <span class="variable">CameraMaxZoomDistance</span> = <span class="value">0x2D8</span>;<br>
-<span class="keyword">inline constexpr</span> <span class="type">uintptr_t</span> <span class="variable">CameraMinZoomDistance</span> = <span class="value">0x2DC</span>;<br>
-<span class="keyword">inline constexpr</span> <span class="type">uintptr_t</span> <span class="variable">CameraMode</span> = <span class="value">0x2E0</span>;
-        </div>
+  </head>
+  <body class="bg-gradient text-white">
+    <div class="main-content">
+      <div class="content-wrapper">
+        <main class="flex-grow flex items-center py-24">
+          <div class="max-w-6xl mx-auto px-8 w-full">
+            <div class="text-center mb-24 opacity-0 animate-fade-in-up">
+              <h1 class="text-6xl font-bold mb-8 tracking-tight title-glow animate-float">
+                <span class="brand-gradient">Axl</span> <span class="text-white">Offsets</span>
+              </h1>
+              <p class="text-purple-200 text-xl max-w-3xl mx-auto leading-relaxed">
+                skibidi king roblox offsets
+              </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+              <a href="/offsets.hpp" class="card rounded-3xl p-10 opacity-0 animate-fade-in-up delay-100 text-center group">
+                <i class="ph ph-file-cpp card-icon"></i>
+                <h3 class="text-xl font-bold mb-4">offsets.hpp</h3>
+                <p class="text-purple-200 text-base">C++ header format for direct integration</p>
+              </a>
+
+              <a href="/offsets.json" class="card rounded-3xl p-10 opacity-0 animate-fade-in-up delay-200 text-center group">
+                <i class="ph ph-brackets-curly card-icon"></i>
+                <h3 class="text-xl font-bold mb-4">offsets.json</h3>
+                <p class="text-purple-200 text-base">JSON structured data for all platforms</p>
+              </a>
+
+              <a href="/version" class="card rounded-3xl p-10 opacity-0 animate-fade-in-up delay-300 text-center group">
+                <i class="ph ph-tag card-icon"></i>
+                <h3 class="text-xl font-bold mb-4">Version Info</h3>
+                <p class="text-purple-200 text-base">Latest version and update status</p>
+              </a>
+            </div>
+
+            <div class="opacity-0 animate-fade-in-up delay-500">
+              <p class="text-center mb-8 version-text text-lg" id="version">loading version...</p>
+              
+
+                  <div class="support-content">
+                    <div class="support-cards grid grid-cols-1 md:grid-cols-2 gap-8">
+                      <div class="card crypto-card p-10 rounded-3xl">
+                        <div class="flex items-center gap-4 mb-6">
+                          <i class="ph ph-currency-btc text-orange-400 text-3xl"></i>
+                          <h3 class="text-xl font-bold">Bitcoin</h3>
+                        </div>
+                        <p class="text-purple-200 text-sm mb-6 break-all font-mono bg-black/30 p-4 rounded-xl" id="btc-address">
+                          bc1qdmhhlr8k4wak73vx0tf9xd3jux79su2s6yfgks
+                        </p>
+                        <button onclick="copyToClipboard('btc-address', this)" 
+                          class="w-full px-8 py-4 bg-purple-500/20 text-purple-300 rounded-xl hover:bg-purple-500/30 transition-all duration-400 text-sm font-semibold hover:transform hover:scale-[1.03]">
+                          Copy Address
+                        </button>
+                      </div>
+
+                      <div class="card crypto-card p-10 rounded-3xl">
+                        <div class="flex items-center gap-4 mb-6">
+                          <i class="ph ph-currency-circle-dollar text-blue-400 text-3xl"></i>
+                          <h3 class="text-xl font-bold">Litecoin</h3>
+                        </div>
+                        <p class="text-purple-200 text-sm mb-6 break-all font-mono bg-black/30 p-4 rounded-xl" id="ltc-address">
+                          LT6pHQ2puuS7t32SXAFr11rnZv6KnuDikz
+                        </p>
+                        <button onclick="copyToClipboard('ltc-address', this)"
+                          class="w-full px-8 py-4 bg-purple-500/20 text-purple-300 rounded-xl hover:bg-purple-500/30 transition-all duration-400 text-sm font-semibold hover:transform hover:scale-[1.03]">
+                          Copy Address
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </details>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+
+      <footer class="py-10 text-center text-purple-300 text-sm">
+        <a href="Discord:Axlc5" class="footer-link text-purple-400 hover:text-purple-300 transition-colors text-base font-semibold">
+          Discord:Axlc5
+        </a>
+        <p class="mt-3 text-xs text-purple-400/60">© 2025 Axl Offsets. All rights reserved.</p>
+      </footer>
     </div>
-</body>
+
+    <script>
+      async function fetchVersion() {
+        try {
+          const response = await fetch("/version");
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          const data = await response.text();
+          return data;
+        } catch (error) {
+          console.error("Error fetching version:", error);
+          return "Error loading version";
+        }
+      }
+
+      function updateVersion() {
+        fetchVersion().then((version) => {
+          const versionElement = document.getElementById("version");
+          versionElement.innerHTML = "Current Version: " + version;
+        }).catch(() => {
+          document.getElementById("version").innerHTML = "Error loading version";
+        });
+      }
+
+      function copyToClipboard(id, button) {
+        const address = document.getElementById(id).textContent;
+        navigator.clipboard
+          .writeText(address)
+          .then(() => {
+            Toastify({
+              text: "Address copied to clipboard",
+              duration: 3500,
+              gravity: "bottom",
+              position: "right",
+              className: "toastify-custom",
+              style: {
+                color: "#fff",
+              },
+              node: createToastContent("check-circle", "Address copied successfully")
+            }).showToast();
+          })
+          .catch(() => {
+            Toastify({
+              text: "Failed to copy address",
+              duration: 3500,
+              gravity: "bottom",
+              position: "right",
+              className: "toastify-custom",
+              style: {
+                background: "rgba(239, 68, 68, 0.95)",
+                color: "#fff",
+              },
+              node: createToastContent("x-circle", "Failed to copy address")
+            }).showToast();
+          });
+      }
+
+      function createToastContent(icon, text) {
+        const container = document.createElement('div');
+        container.style.display = 'flex';
+        container.style.alignItems = 'center';
+        container.style.gap = '14px';
+        
+        const iconElement = document.createElement('i');
+        iconElement.className = `ph ph-${icon}`;
+        iconElement.style.fontSize = '1.4em';
+        
+        const textElement = document.createElement('span');
+        textElement.textContent = text;
+        textElement.style.fontWeight = '600';
+        
+        container.appendChild(iconElement);
+        container.appendChild(textElement);
+        
+        return container;
+      }
+
+      function typeText(element, html, callback) {
+        const iconPart = html.substring(0, html.indexOf('</i>') + 4); 
+        const textPart = html.substring(html.indexOf('</i>') + 4); 
+        let index = 0;
+        
+        element.innerHTML = iconPart;
+        const textSpan = document.createElement('span');
+        element.appendChild(textSpan);
+        
+        function type() {
+          if (index < textPart.length) {
+            textSpan.textContent += textPart.charAt(index);
+            index++;
+            setTimeout(type, 45);
+          } else if (callback) {
+            setTimeout(callback, 250);
+          }
+        }
+        
+        setTimeout(type, 120);
+      }
+
+      const details = document.querySelector('details');
+      const heartIcon = '<i class="ph ph-heart text-purple-400"></i>';
+      const closeIcon = '<i class="ph ph-x text-purple-400"></i>';
+
+      details.removeEventListener('click', details.onclick);
+
+      updateVersion();
+    </script>
+  </body>
 </html>
